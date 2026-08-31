@@ -50,6 +50,16 @@ def user_signup(username, password):
 
     return True
 
+def delete_user(username):
+    result = user_collection.delete_one({"username" : username})
+
+    if result.deleted_count > 0 :
+        return True
+    else:
+        return False
+
+
+
 
 
 
