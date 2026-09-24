@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gilly's — Every Ingredient Is Yours to Choose</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --burgundy:#7A1226;
+    --burgundy-dark:#4A0A17;
+    --burgundy-deeper:#33060F;
+    --cream:#FBF3E6;
+    --cream-alt:#F3E6D2;
+    --charcoal:#2A201D;
+    --gold:#E3A73B;
+    --gold-light:#F4CC7C;
+    --line:rgba(42,32,29,0.12);
+    --shadow-soft: 0 18px 40px rgba(51,6,15,0.14);
+    font-family: 'Inter', sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream);
+    color:var(--charcoal);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img{max-width:100%; display:block;}
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  h1,h2,h3,h4{font-family:'Poppins',sans-serif; color:var(--charcoal); line-height:1.15;}
+  .script{font-family:'Sacramento', cursive; font-weight:400;}
+  .wrap{max-width:1200px; margin:0 auto; padding:0 32px;}
+  section{position:relative;}
+  ::selection{background:var(--gold-light); color:var(--burgundy-deeper);}
+
+  /* ---------- Lowercase brand voice (matches source deck) ---------- */
+  h1, h2, h3, h4,
+  .logo, .kicker, .eyebrow-tag, .btn, .nav-links a, .cart-btn,
+  .filter-chip, .seg-btn, .menu-tag, .build-name,
+  .float-label .lab, .m-lab, .p-lab, .r-lab, .r-unit,
+  .g-index, .growth-card h3, .footer-col h4,
+  .life-content h3, .sname, .srole, .tname, .trole,
+  .ing-name, .group-title h3, .group-title span,
+  .strip-inner, .field label{
+    text-transform:lowercase;
+  }
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible{
+    outline:3px solid var(--gold); outline-offset:3px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    font-family:'Inter',sans-serif; font-weight:600; font-size:15px;
+    padding:15px 30px; border-radius:100px; border:2px solid transparent;
+    cursor:pointer; transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{background:var(--gold); color:var(--burgundy-deeper);}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(227,167,59,0.4);}
+  .btn-outline{background:transparent; border-color:var(--cream); color:var(--cream);}
+  .btn-outline:hover{background:rgba(255,255,255,0.12);}
+  .btn-dark-outline{background:transparent; border-color:var(--charcoal); color:var(--charcoal);}
+  .btn-dark-outline:hover{background:var(--charcoal); color:var(--cream);}
+  .btn-burgundy{background:var(--burgundy); color:var(--cream);}
+  .btn-burgundy:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(122,18,38,0.35);}
+  .btn-sm{padding:10px 20px; font-size:13.5px;}
+
+  /* ---------- Nav ---------- */
+  header{
+    position:sticky; top:0; z-index:200;
+    background:rgba(251,243,230,0.92); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    max-width:1200px; margin:0 auto; padding:14px 32px;
+  }
+  .logo{font-family:'Sacramento',cursive; font-size:34px; color:var(--burgundy);}
+  .nav-links{display:flex; align-items:center; gap:30px;}
+  .nav-links a{font-size:14.5px; font-weight:500; color:var(--charcoal); position:relative; padding:4px 0;}
+  .nav-links a::after{
+    content:''; position:absolute; left:0; bottom:-2px; width:0; height:2px; background:var(--gold);
+    transition:width .2s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-right{display:flex; align-items:center; gap:18px;}
+  .cart-btn{
+    display:flex; align-items:center; gap:6px; font-size:14px; font-weight:600;
+    background:var(--cream-alt); padding:9px 16px; border-radius:100px; border:1px solid var(--line);
+  }
+  .nav-toggle{display:none; background:none; border:none; cursor:pointer; padding:6px;}
+  .nav-toggle span{display:block; width:24px; height:2px; background:var(--charcoal); margin:5px 0; border-radius:2px;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    background:linear-gradient(160deg, var(--burgundy) 0%, var(--burgundy-dark) 55%, var(--burgundy-deeper) 100%);
+    color:var(--cream);
+    padding:76px 0 0;
+    overflow:hidden;
+  }
+  .hero-grid{
+    max-width:1200px; margin:0 auto; padding:0 32px 0;
+    display:grid; grid-template-columns:1.05fr 0.95fr; align-items:center; gap:40px;
+    min-height:640px;
+  }
+  .eyebrow-tag{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:13px; font-weight:600; color:var(--gold-light);
+    background:rgba(227,167,59,0.14); border:1px solid rgba(227,167,59,0.35);
+    padding:7px 16px; border-radius:100px; margin-bottom:26px;
+  }
+  .hero h1{
+    font-family:'Poppins',sans-serif; font-weight:800;
+    font-size:clamp(40px,5.6vw,72px);
+    color:var(--cream); letter-spacing:-0.01em; margin-bottom:22px;
+  }
+  .hero h1 em{
+    font-style:normal; color:var(--gold-light);
+  }
+  .hero p{font-size:18px; color:rgba(251,243,230,0.82); max-width:480px; margin-bottom:36px;}
+  .hero-ctas{display:flex; gap:16px; flex-wrap:wrap;}
+  .hero-visual{
+    position:relative; display:flex; align-items:center; justify-content:center;
+    height:100%;
+  }
+  .bowl-photo-wrap{
+    position:relative; width:100%; max-width:460px; aspect-ratio:1/1;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, rgba(244,204,124,0.35), rgba(122,18,38,0) 65%);
+  }
+  .bowl-photo{
+    width:100%; height:100%; border-radius:50%; object-fit:cover;
+    border:6px solid rgba(251,243,230,0.15);
+    box-shadow:0 30px 70px rgba(0,0,0,0.4);
+  }
+  .float-label{
+    position:absolute; background:var(--cream); color:var(--burgundy-deeper);
+    border-radius:16px; padding:11px 16px; box-shadow:var(--shadow-soft);
+    font-family:'Inter',sans-serif; min-width:88px; text-align:left;
+  }
+  .float-label .num{font-family:'Poppins',sans-serif; font-weight:700; font-size:19px; display:block; line-height:1;}
+  .float-label .lab{font-size:11px; font-weight:600; color:rgba(42,32,29,0.55); text-transform:none;}
+  .fl-kcal{top:2%; left:-6%;}
+  .fl-protein{top:24%; right:-10%;}
+  .fl-carbs{bottom:20%; left:-12%;}
+  .fl-fat{bottom:0%; right:-2%;}
+
+  @keyframes floaty{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-10px);}
+  }
+  .float-label{animation:floaty 5s ease-in-out infinite;}
+  .fl-protein{animation-delay:.6s;}
+  .fl-carbs{animation-delay:1.2s;}
+  .fl-fat{animation-delay:1.8s;}
+
+  .hero-strip{
+    background:var(--burgundy-deeper); margin-top:56px; padding:22px 0;
+    border-top:1px solid rgba(251,243,230,0.1);
+  }
+  .strip-inner{
+    max-width:1200px; margin:0 auto; padding:0 32px;
+    display:flex; align-items:center; gap:14px; flex-wrap:wrap; color:rgba(251,243,230,0.7); font-size:14px;
+  }
+  .strip-inner b{color:var(--gold-light); font-weight:600;}
+
+  /* ---------- Section headers ---------- */
+  .section-pad{padding:100px 0;}
+  .kicker{font-size:14px; font-weight:600; color:var(--burgundy); margin-bottom:14px;}
+  .sec-head{max-width:640px; margin-bottom:56px;}
+  .sec-head h2{font-size:clamp(30px,3.4vw,44px); font-weight:700; margin-bottom:16px;}
+  .sec-head p{font-size:17px; color:rgba(42,32,29,0.7);}
+  .sec-head.center{margin-left:auto; margin-right:auto; text-align:center;}
+
+  /* ---------- Students strip ---------- */
+  .students{background:var(--cream-alt); padding:70px 0;}
+  .students-head{display:flex; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:44px; flex-wrap:wrap;}
+  .students-head h2{font-size:clamp(26px,3vw,36px); max-width:560px;}
+  .students-head p{color:rgba(42,32,29,0.65); max-width:340px; font-size:15px;}
+  .student-row{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+  .student-card{
+    background:var(--cream); border-radius:20px; padding:22px; text-align:center;
+    border:1px solid var(--line); transition:transform .2s ease;
+  }
+  .student-card:hover{transform:translateY(-5px);}
+  .student-photo{
+    width:76px; height:76px; border-radius:50%; margin:0 auto 14px; object-fit:cover;
+    border:3px solid var(--cream-alt);
+  }
+  .student-card .sname{font-family:'Poppins',sans-serif; font-weight:600; font-size:15px; margin-bottom:4px;}
+  .student-card .srole{font-size:13px; color:var(--burgundy); font-weight:500;}
+
+  /* ---------- Builder ---------- */
+  .builder-section{background:var(--charcoal); color:var(--cream); padding:100px 0;}
+  .builder-section .kicker{color:var(--gold-light);}
+  .builder-section .sec-head h2{color:var(--cream);}
+  .builder-section .sec-head p{color:rgba(251,243,230,0.65);}
+  .builder-layout{display:grid; grid-template-columns:1.5fr 1fr; gap:36px; align-items:start;}
+  .builder-groups{display:flex; flex-direction:column; gap:30px;}
+  .group-title{
+    display:flex; align-items:baseline; justify-content:space-between; margin-bottom:14px;
+  }
+  .group-title h3{font-size:19px; color:var(--cream); font-weight:600;}
+  .group-title span{font-size:12.5px; color:rgba(251,243,230,0.45); font-weight:500;}
+  .ingredient-row{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:14px;
+  }
+  .ing-card{
+    background:rgba(251,243,230,0.05); border:1.5px solid rgba(251,243,230,0.12);
+    border-radius:16px; padding:14px; cursor:pointer;
+    transition:border-color .18s ease, background .18s ease, transform .18s ease;
+    display:flex; flex-direction:column; gap:10px; text-align:left;
+    color:var(--cream); font-family:'Inter',sans-serif;
+  }
+  .ing-card:hover{transform:translateY(-3px); border-color:rgba(227,167,59,0.5);}
+  .ing-card.selected{
+    background:rgba(227,167,59,0.14); border-color:var(--gold);
+  }
+  .ing-photo{width:100%; height:76px; border-radius:10px; object-fit:cover;}
+  .ing-name{font-size:14px; font-weight:600;}
+  .ing-meta{display:flex; align-items:center; justify-content:space-between; font-size:12.5px; color:rgba(251,243,230,0.55);}
+  .ing-price{color:var(--gold-light); font-weight:600;}
+  .ing-check{
+    width:18px; height:18px; border-radius:6px; border:1.5px solid rgba(251,243,230,0.3);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .ing-card.selected .ing-check{background:var(--gold); border-color:var(--gold);}
+  .ing-check svg{width:11px; height:11px; opacity:0; transition:opacity .15s ease;}
+  .ing-card.selected .ing-check svg{opacity:1;}
+
+  .nutri-panel{
+    position:sticky; top:100px;
+    background:linear-gradient(165deg, var(--burgundy) 0%, var(--burgundy-dark) 100%);
+    border-radius:24px; padding:30px; box-shadow:0 24px 60px rgba(0,0,0,0.35);
+  }
+  .nutri-panel h3{color:var(--cream); font-size:13px; text-transform:none; letter-spacing:0.02em; font-weight:600; color:var(--gold-light); margin-bottom:6px;}
+  .nutri-panel .build-name{font-family:'Poppins',sans-serif; font-size:22px; font-weight:700; color:var(--cream); margin-bottom:22px;}
+  .macro-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:22px;}
+  .macro-box{
+    background:rgba(251,243,230,0.08); border-radius:14px; padding:16px;
+    border:1px solid rgba(251,243,230,0.1);
+  }
+  .macro-box .m-num{font-family:'Poppins',sans-serif; font-size:26px; font-weight:700; color:var(--cream); transition:opacity .15s ease;}
+  .macro-box .m-lab{font-size:12px; color:rgba(251,243,230,0.6); font-weight:500; margin-top:2px;}
+  .macro-box.kcal{grid-column:1/3; display:flex; align-items:baseline; justify-content:space-between; background:rgba(227,167,59,0.16); border-color:rgba(227,167,59,0.35);}
+  .macro-box.kcal .m-num{font-size:34px; color:var(--gold-light);}
+  .price-row{
+    display:flex; align-items:center; justify-content:space-between;
+    border-top:1px solid rgba(251,243,230,0.15); padding-top:18px; margin-bottom:20px;
+  }
+  .price-row .p-lab{font-size:14px; color:rgba(251,243,230,0.7);}
+  .price-row .p-num{font-family:'Poppins',sans-serif; font-size:26px; font-weight:700; color:var(--cream);}
+  .nutri-panel .btn-primary{width:100%;}
+  .pulse{animation:pulseNum .35s ease;}
+  @keyframes pulseNum{
+    0%{transform:scale(1);}
+    35%{transform:scale(1.12); color:var(--gold-light);}
+    100%{transform:scale(1);}
+  }
+
+  /* ---------- Solve section ---------- */
+  .solve-section{padding:110px 0 100px;}
+  .solve-layout{display:grid; grid-template-columns:0.85fr 1.15fr; gap:60px; align-items:center;}
+  .solve-photo{border-radius:26px; overflow:hidden; aspect-ratio:4/5; box-shadow:var(--shadow-soft);}
+  .solve-photo img{width:100%; height:100%; object-fit:cover;}
+  .solve-list{display:flex; flex-direction:column;}
+  .solve-item{
+    display:grid; grid-template-columns:56px 1fr; gap:20px;
+    padding:28px 0; border-bottom:1px solid var(--line);
+  }
+  .solve-item:first-child{padding-top:0;}
+  .solve-item:last-child{border-bottom:none;}
+  .solve-icon{
+    width:52px; height:52px; border-radius:14px; background:var(--cream-alt);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .solve-icon svg{width:24px; height:24px; stroke:var(--burgundy);}
+  .solve-item h3{font-size:20px; margin-bottom:8px;}
+  .solve-item p{color:rgba(42,32,29,0.68); font-size:15.5px; max-width:480px;}
+
+  /* ---------- Menu ---------- */
+  .menu-section{background:var(--cream-alt); padding:100px 0;}
+  .filter-row{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:44px;}
+  .filter-chip{
+    padding:9px 18px; border-radius:100px; font-size:13.5px; font-weight:600;
+    background:var(--cream); border:1.5px solid var(--line); cursor:pointer; transition:all .15s ease;
+  }
+  .filter-chip.active{background:var(--burgundy); color:var(--cream); border-color:var(--burgundy);}
+  .filter-chip:not(.active):hover{border-color:var(--burgundy);}
+  .menu-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px;}
+  .menu-card{
+    background:var(--cream); border-radius:22px; overflow:hidden; border:1px solid var(--line);
+    transition:transform .2s ease, box-shadow .2s ease; display:flex; flex-direction:column;
+  }
+  .menu-card:hover{transform:translateY(-6px); box-shadow:var(--shadow-soft);}
+  .menu-photo{height:200px; overflow:hidden; position:relative;}
+  .menu-photo img{width:100%; height:100%; object-fit:cover;}
+  .menu-tag{
+    position:absolute; top:14px; left:14px; background:var(--gold); color:var(--burgundy-deeper);
+    font-size:11.5px; font-weight:700; padding:5px 12px; border-radius:100px;
+  }
+  .menu-body{padding:22px; display:flex; flex-direction:column; gap:12px; flex:1;}
+  .menu-body h3{font-size:19px;}
+  .menu-body .desc{font-size:14px; color:rgba(42,32,29,0.62); flex:1;}
+  .menu-stats{display:flex; gap:16px; font-size:12.5px; color:rgba(42,32,29,0.6); font-weight:600;}
+  .menu-foot{display:flex; align-items:center; justify-content:space-between; margin-top:6px;}
+  .menu-price{font-family:'Poppins',sans-serif; font-weight:700; font-size:18px; color:var(--burgundy);}
+
+  /* ---------- Calculator ---------- */
+  .calc-section{padding:100px 0;}
+  .calc-layout{display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:start;}
+  .calc-form{
+    background:var(--cream); border:1px solid var(--line); border-radius:24px; padding:34px;
+    box-shadow:var(--shadow-soft);
+  }
+  .field-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  .field{display:flex; flex-direction:column; gap:7px; margin-bottom:18px;}
+  .field label{font-size:13px; font-weight:600; color:rgba(42,32,29,0.7);}
+  .field input, .field select{
+    padding:12px 14px; border-radius:12px; border:1.5px solid var(--line);
+    font-family:'Inter',sans-serif; font-size:14.5px; background:var(--cream-alt); color:var(--charcoal);
+  }
+  .seg-toggle{display:flex; gap:8px;}
+  .seg-btn{
+    flex:1; padding:11px; border-radius:12px; border:1.5px solid var(--line); background:var(--cream-alt);
+    font-size:13.5px; font-weight:600; cursor:pointer; text-align:center;
+  }
+  .seg-btn.active{background:var(--burgundy); color:var(--cream); border-color:var(--burgundy);}
+  .calc-result{
+    background:linear-gradient(165deg, var(--burgundy) 0%, var(--burgundy-dark) 100%);
+    border-radius:24px; padding:46px 38px; color:var(--cream); text-align:center;
+    position:sticky; top:100px;
+  }
+  .calc-result .r-lab{font-size:14px; color:rgba(251,243,230,0.65); font-weight:500; margin-bottom:10px;}
+  .calc-result .r-num{font-family:'Poppins',sans-serif; font-weight:800; font-size:64px; color:var(--gold-light); line-height:1;}
+  .calc-result .r-unit{font-size:15px; color:rgba(251,243,230,0.7); margin-top:8px; margin-bottom:30px;}
+  .calc-result .btn-primary{width:100%;}
+
+  /* ---------- How it works ---------- */
+  .how-section{background:var(--cream-alt); padding:100px 0;}
+  .how-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:0;}
+  .how-step{position:relative; padding:0 22px 0 0;}
+  .how-step:not(:last-child)::after{
+    content:''; position:absolute; top:26px; right:-4px; width:calc(100% - 52px); height:2px;
+    background:repeating-linear-gradient(90deg, var(--burgundy) 0 8px, transparent 8px 16px);
+  }
+  .how-num{
+    width:52px; height:52px; border-radius:50%; background:var(--burgundy); color:var(--cream);
+    display:flex; align-items:center; justify-content:center; font-family:'Poppins',sans-serif;
+    font-weight:700; font-size:18px; margin-bottom:20px; position:relative; z-index:2;
+  }
+  .how-step h3{font-size:18px; margin-bottom:8px;}
+  .how-step p{font-size:14.5px; color:rgba(42,32,29,0.65);}
+
+  /* ---------- Lifestyle ---------- */
+  .lifestyle-section{padding:100px 0;}
+  .lifestyle-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .lifestyle-grid .life-card:nth-child(1){grid-row:span 2;}
+  .life-card{
+    position:relative; border-radius:22px; overflow:hidden; min-height:220px;
+    display:flex; align-items:flex-end;
+  }
+  .lifestyle-grid .life-card:nth-child(1){min-height:466px;}
+  .life-card img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+  .life-card::before{
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(0deg, rgba(51,6,15,0.88) 0%, rgba(51,6,15,0.1) 60%);
+  }
+  .life-content{position:relative; z-index:2; padding:24px; color:var(--cream);}
+  .life-content h3{color:var(--cream); font-size:19px; margin-bottom:6px;}
+  .life-content p{font-size:13.5px; color:rgba(251,243,230,0.8);}
+
+  /* ---------- About ---------- */
+  .about-section{background:var(--charcoal); color:var(--cream); padding:100px 0;}
+  .about-section .kicker{color:var(--gold-light);}
+  .about-layout{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; margin-bottom:70px;}
+  .about-layout h2{color:var(--cream); font-size:clamp(28px,3.2vw,40px); margin-bottom:20px;}
+  .about-layout p{color:rgba(251,243,230,0.72); font-size:16px; margin-bottom:16px;}
+  .about-photo{border-radius:24px; overflow:hidden; aspect-ratio:5/4;}
+  .about-photo img{width:100%; height:100%; object-fit:cover;}
+  .team-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px;}
+  .team-card{background:rgba(251,243,230,0.05); border:1px solid rgba(251,243,230,0.12); border-radius:20px; padding:26px; text-align:center;}
+  .team-photo{width:88px; height:88px; border-radius:50%; margin:0 auto 16px; object-fit:cover; border:3px solid rgba(227,167,59,0.4);}
+  .team-card .tname{font-family:'Poppins',sans-serif; font-weight:600; font-size:16px; margin-bottom:4px; color:var(--cream);}
+  .team-card .trole{font-size:13px; color:var(--gold-light); font-weight:500;}
+
+  /* ---------- Growth ---------- */
+  .growth-section{padding:100px 0;}
+  .growth-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px;}
+  .growth-card{
+    border:1.5px solid var(--line); border-radius:20px; padding:28px 24px;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .growth-card:hover{border-color:var(--burgundy); transform:translateY(-4px);}
+  .growth-card .g-index{font-family:'Poppins',sans-serif; font-weight:700; font-size:13px; color:var(--gold); margin-bottom:16px;}
+  .growth-card h3{font-size:18px; margin-bottom:10px;}
+  .growth-card p{font-size:14px; color:rgba(42,32,29,0.62);}
+
+  /* ---------- Final CTA ---------- */
+  .final-cta{
+    background:linear-gradient(135deg, var(--burgundy) 0%, var(--burgundy-deeper) 100%);
+    color:var(--cream); padding:90px 0; text-align:center;
+  }
+  .final-cta h2{color:var(--cream); font-size:clamp(30px,4vw,48px); margin-bottom:18px;}
+  .final-cta p{color:rgba(251,243,230,0.75); max-width:520px; margin:0 auto 34px; font-size:17px;}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--burgundy-deeper); color:rgba(251,243,230,0.7); padding:70px 0 30px;}
+  .footer-grid{display:grid; grid-template-columns:1.4fr 0.8fr 0.8fr 1.2fr; gap:40px; margin-bottom:50px;}
+  footer .logo{color:var(--cream); margin-bottom:14px;}
+  .footer-col h4{color:var(--cream); font-size:14px; font-weight:600; margin-bottom:18px;}
+  .footer-col ul li{margin-bottom:11px; font-size:14px;}
+  .footer-col a:hover{color:var(--gold-light);}
+  .newsletter-row{display:flex; gap:0; margin-top:14px; border-radius:100px; overflow:hidden; border:1.5px solid rgba(251,243,230,0.2);}
+  .newsletter-row input{
+    flex:1; border:none; background:transparent; padding:12px 16px; color:var(--cream); font-size:14px; font-family:'Inter',sans-serif;
+  }
+  .newsletter-row input::placeholder{color:rgba(251,243,230,0.4);}
+  .newsletter-row button{
+    background:var(--gold); color:var(--burgundy-deeper); border:none; padding:0 22px; font-weight:600; font-size:13.5px; cursor:pointer;
+  }
+  .footer-bottom{
+    border-top:1px solid rgba(251,243,230,0.12); padding-top:26px;
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:13px;
+  }
+  .social-row{display:flex; gap:14px;}
+  .social-row a{
+    width:36px; height:36px; border-radius:50%; border:1px solid rgba(251,243,230,0.25);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .social-row svg{width:15px; height:15px;}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:1024px){
+    .hero-grid{grid-template-columns:1fr; min-height:auto; padding-top:20px;}
+    .hero-visual{order:-1; margin-bottom:20px;}
+    .bowl-photo-wrap{max-width:340px;}
+    .student-row{grid-template-columns:repeat(2,1fr);}
+    .builder-layout{grid-template-columns:1fr;}
+    .nutri-panel{position:static;}
+    .solve-layout{grid-template-columns:1fr;}
+    .solve-photo{aspect-ratio:16/9;}
+    .menu-grid{grid-template-columns:repeat(2,1fr);}
+    .calc-layout{grid-template-columns:1fr;}
+    .calc-result{position:static;}
+    .how-grid{grid-template-columns:repeat(2,1fr); gap:34px;}
+    .how-step::after{display:none;}
+    .lifestyle-grid{grid-template-columns:repeat(2,1fr);}
+    .lifestyle-grid .life-card:nth-child(1){grid-row:auto; min-height:220px;}
+    .about-layout{grid-template-columns:1fr;}
+    .team-grid{grid-template-columns:repeat(2,1fr);}
+    .growth-grid{grid-template-columns:repeat(2,1fr);}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:720px){
+    .nav-links{display:none;}
+    .nav-toggle{display:block;}
+    .cart-btn span.ct{display:none;}
+    .wrap, .hero-grid, .strip-inner{padding-left:20px; padding-right:20px;}
+    .section-pad{padding:70px 0;}
+    .ingredient-row{grid-template-columns:repeat(2,1fr);}
+    .menu-grid{grid-template-columns:1fr;}
+    .student-row{grid-template-columns:1fr 1fr;}
+    .field-grid{grid-template-columns:1fr;}
+    .team-grid{grid-template-columns:1fr 1fr;}
+    .growth-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    .fl-kcal, .fl-protein, .fl-carbs, .fl-fat{padding:8px 12px;}
+    .float-label .num{font-size:15px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#top" class="logo">Gilly's</a>
+    <ul class="nav-links">
+      <li><a href="#top">Home</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#builder">Build Your Meal</a></li>
+      <li><a href="#calculator">Calorie Calculator</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#footer-contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="#builder" class="btn btn-burgundy btn-sm">Build Your Meal</a>
+      <a href="#" class="cart-btn"><span>🛒</span><span class="ct">Cart · 0</span></a>
+      <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow-tag">Built ingredient by ingredient</span>
+        <h1>Every ingredient<br>is <em>yours</em> to choose.</h1>
+        <p>Pick your base, your protein, your sides and sauce — Gilly's rebuilds the calories, protein, carbs and fat around exactly what you order, before it ever reaches your cart.</p>
+        <div class="hero-ctas">
+          <a href="#builder" class="btn btn-primary">Build Your Meal</a>
+          <a href="#menu" class="btn btn-outline">View Menu</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="bowl-photo-wrap">
+          <img class="bowl-photo" src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&q=80" alt="Customizable grain bowl with grilled chicken, avocado, rice and vegetables">
+          <div class="float-label fl-kcal"><span class="num">612</span><span class="lab">calories</span></div>
+          <div class="float-label fl-protein"><span class="num">43g</span><span class="lab">protein</span></div>
+          <div class="float-label fl-carbs"><span class="num">61g</span><span class="lab">carbs</span></div>
+          <div class="float-label fl-fat"><span class="num">19g</span><span class="lab">fat</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-strip">
+      <div class="strip-inner">
+        <b>Four students, one bowl.</b> We're building Gilly's at the University of the East – Manila. Everyone on the team has a build they order more than they'd like to admit.
+      </div>
+    </div>
+  </section>
+
+  <!-- BUILD YOUR MEAL -->
+  <section class="builder-section section-pad" id="builder">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker">Build your meal</div>
+        <h2>Every ingredient is a switch.</h2>
+        <p>Add, remove or swap any component and your meal — and its macros — rebuild around exactly what you chose. Try it below.</p>
+      </div>
+
+      <div class="builder-layout">
+        <div class="builder-groups">
+
+          <div>
+            <div class="group-title"><h3>1 · Base</h3><span>choose one</span></div>
+            <div class="ingredient-row" data-group="base" data-type="single">
+              <button class="ing-card selected" data-name="Brown Rice" data-kcal="215" data-protein="5" data-carbs="45" data-fat="2" data-price="35">
+                <img class="ing-photo" src="https://images.unsplash.com/photo-1516684732162-798a0062be99?w=300&q=80" alt="Brown rice">
+                <div class="ing-name">Brown Rice</div>
+                <div class="ing-meta"><span>215 kcal</span><span class="ing-price">₱35</span></div>
+              </button>
+              <button class="ing-card" data-name="Quinoa" data-kcal="222" data-protein="8" data-carbs="39" data-fat="4" data-price="75">
+                <img class="ing-photo" src="https://images.unsplash.com/photo-1586201375761-83865001e31c?w=300&q=80" alt="Quinoa">
+                <div class="ing-name">Quinoa</div>
+                <div class="ing-meta"><span>222 kcal</span><span class="ing-price">₱75</span></div>
+              </button>
+              <button class="ing-card" data-name="Cauliflower Rice" data-kcal="90" data-protein="4" data-carbs="15" data-fat="2" data-price="30">
+                <img class="ing-photo" src="https://images.unsplash.com/photo-1568564092841-5a2ef34e01f0?w=300&q=80" alt="Cauliflower rice">
+                <div class="ing-name">Cauliflower Rice</div>
+                <div class="ing-meta"><span>90 kcal</span><span class="ing-price">₱30</span></div>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <div class="group-title"><h3>2 · Protein</h3><span>choose one</span></div>
+            <div class="ingredient-row" data-group="protein" data-type="single">
+              <button class="ing-card selected" data-name="Grilled Chicken" data-kcal="231" data-protein="43" data-carbs="0" data-fat="5" data-price="140">
+                <img class="ing-photo" src="https://images.unsplash.com/photo-1598515213692-5f254e5c5e5f?w=300&q=80" alt="Grilled chicken">
+                <div class="ing-name">Grilled Chicken</div>
+                <div class="ing-meta"><span>231 kcal</span><span class="ing-price">₱140</span></div>
+              </button>
+              <button class="ing-card" data-name="Beef Sirloin" data-kcal="250" data-protein="30" data-carbs="0" data-fat="14" data-price="180">
+                <img class="ing-photo" src="https://images.unsplash.com/photo-1607116667981-0ba7c1f4d5d8?w=300&q=80" alt="Beef sirloin">
+                <div class="ing-name">Beef Sirloin</div>
+                <div class="ing-meta"><span>250 kcal</span><span class="ing-price">₱180</span></div>
+              </button>
+              <button class="ing-card" data-name="Tofu" data-kcal="180" data-protein="17" data-carbs="8" data-fat="10" data-price="60">
+                <img class="ing-photo" src="https://images.unsplash.com/photo-1626200419199-391ae4be7a41?w=300&q=80" alt="Tofu">
+                <div class="ing-name">Tofu</div>
+                <div class="ing-meta"><span>180 kcal</span><span class="ing-price">₱60</span></div>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <div class="group-title"><h3>3 · Vegetables &amp; Sides</h3><span>toggle any</span></div>
+            <div class="ingredient-row" data-group="sides" data-type="multi">
+              <button class="ing-card selected" data-name="Broccoli" data-kcal="55" data-protein="4" data-carbs="10" data-fat="1" data-price="40">
+                <div class="ing-check"><svg viewBox="0 0 24 24" fill="none" stroke="#33060F" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+                <img class="ing-photo" src="https://images.unsplash.com/photo-1584270354949-c26b0d5b4a0c?w=300&q=80" alt="Broccoli">
+                <div class="ing-name">Broccoli</div>
+                <div class="ing-meta"><span>55 kcal</span><span class="ing-price">₱40</span></div>
+              </button>
+              <button class="ing-card" data-name="Roasted Kamote" data-kcal="130" data-protein="2" data-carbs="30" data-fat="0" data-price="45">
+                <div class="ing-check"><svg viewBox="0 0 24 24" fill="none" stroke="#33060F" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+                <img class="ing-photo" src="https://images.unsplash.com/photo-1596097635167-5b1e5c4a5c1a?w=300&q=80" alt="Roasted sweet potato">
+                <div class="ing-name">Roasted Kamote</div>
+                <div class="ing-meta"><span>130 kcal</span><span class="ing-price">₱45</span></div>
+              </button>
+              <button class="ing-card" data-name="Avocado" data-kcal="160" data-protein="2" data-carbs="9" data-fat="15" data-price="65">
+                <div class="ing-check"><svg viewBox="0 0 24 24" fill="none" stroke="#33060F" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+                <img class="ing-photo" src="https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=300&q=80" alt="Avocado">
+                <div class="ing-name">Avocado</div>
+                <div class="ing-meta"><span>160 kcal</span><span class="ing-price">₱65</span></div>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <div class="group-title"><h3>4 · Sauce</h3><span>choose one</span></div>
+            <div class="ingredient-row" data-group="sauce" data-type="single">
+              <button class="ing-card selected" data-name="Calamansi Vinaigrette" data-kcal="45" data-protein="0" data-carbs="4" data-fat="3" data-price="20">
+                <img class="ing-photo" src="https://images.unsplash.com/photo-1608897013039-887f21d8c804?w=300&q=80" alt="Calamansi vinaigrette">
+                <div class="ing-name">Calamansi Vinaigrette</div>
+                <div class="ing-meta"><span>45 kcal</span><span class="ing-price">₱20</span></div>
+              </button>
+              <button class="ing-card" data-name="Peanut Sauce" data-kcal="95" data-protein="3" data-carbs="6" data-fat="7" data-price="25">
+                <img class="ing-photo" src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=300&q=80" alt="Peanut sauce">
+                <div class="ing-name">Peanut Sauce</div>
+                <div class="ing-meta"><span>95 kcal</span><span class="ing-price">₱25</span></div>
+              </button>
+              <button class="ing-card" data-name="Sesame Ginger" data-kcal="70" data-protein="1" data-carbs="8" data-fat="3" data-price="25">
+                <img class="ing-photo" src="https://images.unsplash.com/photo-1611489142694-0c8f5cf59c96?w=300&q=80" alt="Sesame ginger sauce">
+                <div class="ing-name">Sesame Ginger</div>
+                <div class="ing-meta"><span>70 kcal</span><span class="ing-price">₱25</span></div>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <div class="group-title"><h3>5 · Extras</h3><span>toggle any</span></div>
+            <div class="ingredient-row" data-group="extras" data-type="multi">
+              <button class="ing-card" data-name="Extra Protein Scoop" data-kcal="90" data-protein="18" data-carbs="0" data-fat="2" data-price="55">
+                <div class="ing-check"><svg viewBox="0 0 24 24" fill="none" stroke="#33060F" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+                <img class="ing-photo" src="https://images.unsplash.com/photo-1607330289024-1535c6b4e1c1?w=300&q=80" alt="Extra protein scoop">
+                <div class="ing-name">Extra Protein</div>
+                <div class="ing-meta"><span>90 kcal</span><span class="ing-price">₱55</span></div>
+              </button>
+              <button class="ing-card" data-name="Toasted Almonds" data-kcal="80" data-protein="3" data-carbs="3" data-fat="7" data-price="30">
+                <div class="ing-check"><svg viewBox="0 0 24 24" fill="none" stroke="#33060F" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+                <img class="ing-photo" src="https://images.unsplash.com/photo-1508061253366-f7da158b6d46?w=300&q=80" alt="Toasted almonds">
+                <div class="ing-name">Toasted Almonds</div>
+                <div class="ing-meta"><span>80 kcal</span><span class="ing-price">₱30</span></div>
+              </button>
+              <button class="ing-card" data-name="Feta Crumble" data-kcal="75" data-protein="4" data-carbs="1" data-fat="6" data-price="35">
+                <div class="ing-check"><svg viewBox="0 0 24 24" fill="none" stroke="#33060F" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+                <img class="ing-photo" src="https://images.unsplash.com/photo-1552767059-ce182ead6c1b?w=300&q=80" alt="Feta crumble">
+                <div class="ing-name">Feta Crumble</div>
+                <div class="ing-meta"><span>75 kcal</span><span class="ing-price">₱35</span></div>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="nutri-panel">
+          <h3>Live macro tracking</h3>
+          <div class="build-name" id="buildName">Your Build</div>
+          <div class="macro-grid">
+            <div class="macro-box kcal">
+              <div><div class="m-num" id="mKcal">546</div><div class="m-lab">calories</div></div>
+            </div>
+            <div class="macro-box"><div class="m-num" id="mProtein">52g</div><div class="m-lab">protein</div></div>
+            <div class="macro-box"><div class="m-num" id="mCarbs">59g</div><div class="m-lab">carbs</div></div>
+            <div class="macro-box"><div class="m-num" id="mFat">11g</div><div class="m-lab">fat</div></div>
+          </div>
+          <div class="price-row">
+            <span class="p-lab">Total price</span>
+            <span class="p-num" id="mPrice">₱235</span>
+          </div>
+          <a href="#" class="btn btn-primary">Add to Cart</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT GILLY'S SOLVES -->
+  <section class="solve-section section-pad">
+    <div class="wrap">
+      <div class="solve-layout">
+        <div class="solve-photo">
+          <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=700&q=80" alt="Person customizing a meal bowl on their phone">
+        </div>
+        <div>
+          <div class="kicker">What Gilly's solves</div>
+          <div class="solve-list">
+            <div class="solve-item">
+              <div class="solve-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h7"/></svg></div>
+              <div>
+                <h3>No more fixed menus</h3>
+                <p>Skip the pre-packaged meals you don't like. Every component is optional, so you're never stuck eating around an ingredient you'd rather swap out.</p>
+              </div>
+            </div>
+            <div class="solve-item">
+              <div class="solve-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+              <div>
+                <h3>No guesswork</h3>
+                <p>Get exact calories, protein, carbs and fat for the meal you actually built — not an average for a dish you modified after the fact.</p>
+              </div>
+            </div>
+            <div class="solve-item">
+              <div class="solve-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 21C7 21 3 17 3 12S7 3 12 3s9 4 9 9-4 9-9 9z"/><path d="M12 8v4l3 2"/></svg></div>
+              <div>
+                <h3>No diet burnout</h3>
+                <p>Customize meals around your own taste without breaking your goals. No starving — just smart, balanced meals you'll actually want to order again.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section class="menu-section section-pad" id="menu">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker">Popular builds</div>
+        <h2>Order it as-is, or make it yours.</h2>
+        <p>A few of the most-ordered combinations — every one of them fully customizable from here.</p>
+      </div>
+      <div class="filter-row">
+        <button class="filter-chip active">All</button>
+        <button class="filter-chip">High Protein</button>
+        <button class="filter-chip">Low Calorie</button>
+        <button class="filter-chip">Balanced</button>
+        <button class="filter-chip">Vegetarian</button>
+        <button class="filter-chip">Popular</button>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-card">
+          <div class="menu-photo">
+            <span class="menu-tag">Popular</span>
+            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&q=80" alt="Classic Grill Bowl">
+          </div>
+          <div class="menu-body">
+            <h3>Classic Grill Bowl</h3>
+            <p class="desc">Brown rice, grilled chicken, broccoli, avocado, calamansi vinaigrette.</p>
+            <div class="menu-stats"><span>546 kcal</span><span>52g protein</span></div>
+            <div class="menu-foot"><span class="menu-price">₱235</span><a href="#builder" class="btn btn-dark-outline btn-sm">Customize</a></div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-photo">
+            <span class="menu-tag">High Protein</span>
+            <img src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=500&q=80" alt="Sirloin Power Bowl">
+          </div>
+          <div class="menu-body">
+            <h3>Sirloin Power Bowl</h3>
+            <p class="desc">Quinoa, beef sirloin, roasted kamote, toasted almonds, peanut sauce.</p>
+            <div class="menu-stats"><span>682 kcal</span><span>61g protein</span></div>
+            <div class="menu-foot"><span class="menu-price">₱345</span><a href="#builder" class="btn btn-dark-outline btn-sm">Customize</a></div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-photo">
+            <span class="menu-tag">Low Calorie</span>
+            <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=500&q=80" alt="Light Greens Bowl">
+          </div>
+          <div class="menu-body">
+            <h3>Light Greens Bowl</h3>
+            <p class="desc">Cauliflower rice, tofu, broccoli, sesame ginger, feta crumble.</p>
+            <div class="menu-stats"><span>410 kcal</span><span>26g protein</span></div>
+            <div class="menu-foot"><span class="menu-price">₱190</span><a href="#builder" class="btn btn-dark-outline btn-sm">Customize</a></div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-photo">
+            <span class="menu-tag">Vegetarian</span>
+            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&q=80" alt="Garden Tofu Bowl">
+          </div>
+          <div class="menu-body">
+            <h3>Garden Tofu Bowl</h3>
+            <p class="desc">Quinoa, tofu, roasted kamote, avocado, calamansi vinaigrette.</p>
+            <div class="menu-stats"><span>571 kcal</span><span>29g protein</span></div>
+            <div class="menu-foot"><span class="menu-price">₱280</span><a href="#builder" class="btn btn-dark-outline btn-sm">Customize</a></div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-photo">
+            <span class="menu-tag">Balanced</span>
+            <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&q=80" alt="Everyday Chicken Bowl">
+          </div>
+          <div class="menu-body">
+            <h3>Everyday Chicken Bowl</h3>
+            <p class="desc">Brown rice, grilled chicken, roasted kamote, sesame ginger sauce.</p>
+            <div class="menu-stats"><span>605 kcal</span><span>50g protein</span></div>
+            <div class="menu-foot"><span class="menu-price">₱225</span><a href="#builder" class="btn btn-dark-outline btn-sm">Customize</a></div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-photo">
+            <span class="menu-tag">Popular</span>
+            <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=500&q=80" alt="Peanut Beef Bowl">
+          </div>
+          <div class="menu-body">
+            <h3>Peanut Beef Bowl</h3>
+            <p class="desc">Brown rice, beef sirloin, avocado, extra protein, peanut sauce.</p>
+            <div class="menu-stats"><span>720 kcal</span><span>66g protein</span></div>
+            <div class="menu-foot"><span class="menu-price">₱365</span><a href="#builder" class="btn btn-dark-outline btn-sm">Customize</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALCULATOR -->
+  <section class="calc-section section-pad" id="calculator">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker">Daily calorie calculator</div>
+        <h2>Build against a number that's yours.</h2>
+        <p>Work out a target from your height, weight, age and activity level, then order a build that fits it.</p>
+      </div>
+      <div class="calc-layout">
+        <div class="calc-form">
+          <div class="field">
+            <label>Sex</label>
+            <div class="seg-toggle">
+              <button type="button" class="seg-btn active" data-sex="female">Female</button>
+              <button type="button" class="seg-btn" data-sex="male">Male</button>
+            </div>
+          </div>
+          <div class="field-grid">
+            <div class="field">
+              <label for="age">Age</label>
+              <input type="number" id="age" value="22" min="14" max="90">
+            </div>
+            <div class="field">
+              <label for="height">Height (cm)</label>
+              <input type="number" id="height" value="163" min="120" max="230">
+            </div>
+            <div class="field">
+              <label for="weight">Weight (kg)</label>
+              <input type="number" id="weight" value="58" min="30" max="200">
+            </div>
+            <div class="field">
+              <label for="activity">Activity level</label>
+              <select id="activity">
+                <option value="1.2">Sedentary — little exercise</option>
+                <option value="1.375" selected>Light — 1–3 days/week</option>
+                <option value="1.55">Moderate — 3–5 days/week</option>
+                <option value="1.725">Active — 6–7 days/week</option>
+                <option value="1.9">Very active — physical job</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>Goal</label>
+            <div class="seg-toggle">
+              <button type="button" class="seg-btn" data-goal="-500">Lose</button>
+              <button type="button" class="seg-btn active" data-goal="0">Maintain</button>
+              <button type="button" class="seg-btn" data-goal="350">Gain</button>
+            </div>
+          </div>
+        </div>
+        <div class="calc-result">
+          <div class="r-lab">Your estimated daily target</div>
+          <div class="r-num" id="calcResult">2,046</div>
+          <div class="r-unit">calories per day</div>
+          <a href="#builder" class="btn btn-primary">Build a Meal for My Goal</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section section-pad">
+    <div class="wrap">
+      <div class="sec-head center" style="margin-bottom:64px;">
+        <div class="kicker" style="text-align:center;">How it works</div>
+        <h2>Choose, customize, track, checkout.</h2>
+      </div>
+      <div class="how-grid">
+        <div class="how-step">
+          <div class="how-num">1</div>
+          <h3>Choose</h3>
+          <p>Browse categorized meals or start from scratch — every build begins with a base.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-num">2</div>
+          <h3>Customize</h3>
+          <p>Toggle proteins, sides, sauces and extras. Swap anything you don't want.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-num">3</div>
+          <h3>Track</h3>
+          <p>Watch calories and macros recalculate the moment you change a component.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-num">4</div>
+          <h3>Checkout</h3>
+          <p>Your build becomes an order summary in one step — pick a delivery slot and you're done.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIFESTYLE -->
+  <section class="lifestyle-section section-pad">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker">Made for your lifestyle</div>
+        <h2>Built for the way you actually eat.</h2>
+      </div>
+      <div class="lifestyle-grid">
+        <div class="life-card">
+          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=700&q=80" alt="Student studying with a meal bowl">
+          <div class="life-content">
+            <h3>Students</h3>
+            <p>Fast, affordable builds between classes that don't fall back on instant noodles.</p>
+          </div>
+        </div>
+        <div class="life-card">
+          <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=700&q=80" alt="Young professional on a lunch break">
+          <div class="life-content">
+            <h3>Young Professionals</h3>
+            <p>Order on a break, customize in under a minute, know exactly what you're eating.</p>
+          </div>
+        </div>
+        <div class="life-card">
+          <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=700&q=80" alt="Person exercising with gym gear">
+          <div class="life-content">
+            <h3>Gym-Goers</h3>
+            <p>Dial in protein and macro ratios to match a cutting or muscle-building plan.</p>
+          </div>
+        </div>
+        <div class="life-card">
+          <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=700&q=80" alt="Person preparing a specialty diet meal">
+          <div class="life-content">
+            <h3>Specialty Dieters</h3>
+            <p>Remove ingredients freely for gluten-free, low-sodium or other medical needs.</p>
+          </div>
+        </div>
+        <div class="life-card">
+          <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=700&q=80" alt="Busy adult picking up food order">
+          <div class="life-content">
+            <h3>Busy Adults &amp; Picky Eaters</h3>
+            <p>Keep a calorie budget while eating food built around what you actually like.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT / TEAM -->
+  <section class="about-section section-pad" id="about">
+    <div class="wrap">
+      <div class="about-layout">
+        <div>
+          <div class="kicker">About Gilly's</div>
+          <h2>Four students, one shared complaint.</h2>
+          <p>Gilly's started at the University of the East – Manila, where four students got tired of eating the same fixed meals, over and over, with no real say in what went into them.</p>
+          <p>So we built the ordering system we wished existed: one where every ingredient is a switch, every macro is visible before checkout, and no one has to eat around a component they don't want.</p>
+        </div>
+        <div class="about-photo">
+          <img src="https://images.unsplash.com/photo-1515169067868-5387ec356754?w=700&q=80" alt="Team working together on a laptop">
+        </div>
+      </div>
+      <div class="team-grid">
+        <div class="team-card">
+          <img class="team-photo" src="https://images.unsplash.com/photo-1618077360395-f3068be8e001?w=200&q=80" alt="Eoine Kyle Bayubay">
+          <div class="tname">Eoine Kyle Bayubay</div>
+          <div class="trole">Front-End Developer</div>
+        </div>
+        <div class="team-card">
+          <img class="team-photo" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=200&q=80" alt="Mark Daniel Francisco">
+          <div class="tname">Mark Daniel Francisco</div>
+          <div class="trole">Back-End Developer</div>
+        </div>
+        <div class="team-card">
+          <img class="team-photo" src="https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?w=200&q=80" alt="Jillea Mendoza">
+          <div class="tname">Jillea Mendoza</div>
+          <div class="trole">Project Manager</div>
+        </div>
+        <div class="team-card">
+          <img class="team-photo" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=200&q=80" alt="Carl Michael Risos">
+          <div class="tname">Carl Michael Risos</div>
+          <div class="trole">Quality Assurance</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GROWTH -->
+  <section class="growth-section section-pad">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker">Growth plan</div>
+        <h2>Expanding possibilities. Building the future.</h2>
+      </div>
+      <div class="growth-grid">
+        <div class="growth-card">
+          <div class="g-index">Broader choices</div>
+          <h3>More meals, more diets</h3>
+          <p>Expanding the variety of bases, proteins and dietary options on offer.</p>
+        </div>
+        <div class="growth-card">
+          <div class="g-index">Smarter personalization</div>
+          <h3>Better recommendations</h3>
+          <p>Smarter ingredient swaps and suggestions based on what you actually order.</p>
+        </div>
+        <div class="growth-card">
+          <div class="g-index">Seamless integration</div>
+          <h3>Connected to your tools</h3>
+          <p>Integrating with fitness and health trackers for holistic wellness support.</p>
+        </div>
+        <div class="growth-card">
+          <div class="g-index">Continuous improvement</div>
+          <h3>Built on feedback</h3>
+          <p>Improving the experience with data-driven insights and real user feedback.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="wrap">
+      <h2>Your next meal is one build away.</h2>
+      <p>No fixed menus, no guesswork, no diet burnout. Just meals made for you, down to the last ingredient.</p>
+      <a href="#builder" class="btn btn-primary">Build Your Meal</a>
+    </div>
+  </section>
+
+</main>
+
+<footer id="footer-contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a href="#top" class="logo">Gilly's</a>
+        <p style="max-width:300px; font-size:14px; margin-top:14px;">Meals made for you, down to the last ingredient. Made with care in the Philippines.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Service</h4>
+        <ul>
+          <li><a href="#menu">View Menu</a></li>
+          <li><a href="#builder">Build Your Meal</a></li>
+          <li><a href="#calculator">Gilly's Calculator</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Customer Support</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
+          <li><a href="#">Promos &amp; Discounts</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <p style="font-size:14px;">Your journey to better eating starts with a click.</p>
+        <div class="newsletter-row">
+          <input type="email" placeholder="Email address">
+          <button>Subscribe</button>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Gilly's. All rights reserved. · gillys@gmail.com · 0123-456-7890</span>
+      <div class="social-row">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 9h3V5h-3a4 4 0 00-4 4v3H7v4h3v6h4v-6h3l1-4h-4V9a1 1 0 011-1z"/></svg></a>
+        <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 3v10.5a3.5 3.5 0 11-3-3.46V7a7 7 0 007 7"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ---------- Mobile nav ----------
+  const navToggle = document.querySelector('.nav-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  navToggle.addEventListener('click', () => {
+    const open = navLinks.style.display === 'flex';
+    navLinks.style.display = open ? 'none' : 'flex';
+    navLinks.style.cssText += open ? '' : 'position:absolute; top:64px; left:0; right:0; background:var(--cream); flex-direction:column; padding:20px 32px; gap:16px; border-bottom:1px solid var(--line);';
+  });
+
+  // ---------- Meal builder ----------
+  const groups = document.querySelectorAll('[data-group]');
+  const elKcal = document.getElementById('mKcal');
+  const elProtein = document.getElementById('mProtein');
+  const elCarbs = document.getElementById('mCarbs');
+  const elFat = document.getElementById('mFat');
+  const elPrice = document.getElementById('mPrice');
+  const elName = document.getElementById('buildName');
+
+  function pulse(el){
+    el.classList.remove('pulse');
+    void el.offsetWidth;
+    el.classList.add('pulse');
+  }
+
+  function recalc(){
+    let kcal=0, protein=0, carbs=0, fat=0, price=0;
+    let mainParts = [];
+    groups.forEach(group => {
+      const selected = group.querySelectorAll('.ing-card.selected');
+      selected.forEach((card, i) => {
+        kcal += Number(card.dataset.kcal);
+        protein += Number(card.dataset.protein);
+        carbs += Number(card.dataset.carbs);
+        fat += Number(card.dataset.fat);
+        price += Number(card.dataset.price);
+      });
+      const first = group.querySelector('.ing-card.selected');
+      if(first && (group.dataset.group === 'base' || group.dataset.group === 'protein')){
+        mainParts.push(first.dataset.name);
+      }
+    });
+    elKcal.textContent = kcal;
+    elProtein.textContent = protein + 'g';
+    elCarbs.textContent = carbs + 'g';
+    elFat.textContent = fat + 'g';
+    elPrice.textContent = '₱' + price;
+    elName.textContent = mainParts.length ? mainParts.join(' + ') + ' Bowl' : 'Your Build';
+    [elKcal, elProtein, elCarbs, elFat, elPrice].forEach(pulse);
+  }
+
+  groups.forEach(group => {
+    const type = group.dataset.type;
+    const cards = group.querySelectorAll('.ing-card');
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        if(type === 'single'){
+          cards.forEach(c => c.classList.remove('selected'));
+          card.classList.add('selected');
+        } else {
+          card.classList.toggle('selected');
+        }
+        recalc();
+      });
+    });
+  });
+  recalc();
+
+  // ---------- Menu filters ----------
+  document.querySelectorAll('.filter-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+    });
+  });
+
+  // ---------- Calorie calculator ----------
+  const sexBtns = document.querySelectorAll('[data-sex]');
+  const goalBtns = document.querySelectorAll('[data-goal]');
+  const ageInput = document.getElementById('age');
+  const heightInput = document.getElementById('height');
+  const weightInput = document.getElementById('weight');
+  const activitySelect = document.getElementById('activity');
+  const calcResult = document.getElementById('calcResult');
+
+  let sex = 'female';
+  let goal = 0;
+
+  sexBtns.forEach(btn => btn.addEventListener('click', () => {
+    sexBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    sex = btn.dataset.sex;
+    calcCalories();
+  }));
+  goalBtns.forEach(btn => btn.addEventListener('click', () => {
+    goalBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    goal = Number(btn.dataset.goal);
+    calcCalories();
+  }));
+  [ageInput, heightInput, weightInput, activitySelect].forEach(el => el.addEventListener('input', calcCalories));
+
+  function calcCalories(){
+    const age = Number(ageInput.value) || 0;
+    const h = Number(heightInput.value) || 0;
+    const w = Number(weightInput.value) || 0;
+    const activity = Number(activitySelect.value);
+    let bmr = sex === 'male'
+      ? 10*w + 6.25*h - 5*age + 5
+      : 10*w + 6.25*h - 5*age - 161;
+    let total = Math.round((bmr * activity) + goal);
+    if(total < 0) total = 0;
+    calcResult.textContent = total.toLocaleString();
+  }
+  calcCalories();
+</script>
+
+</body>
+</html>
